@@ -33,6 +33,9 @@ object Model {
     val cards
         get() = _cards.toList()
 
+    fun getCardById(id: Int): Card =
+        _cards.first { it.id == id }
+
     fun removeCard(id: Int) {
         _cards.removeIf {
             it.id == id
@@ -72,6 +75,4 @@ object Model {
         val card = Card(nextId, question, example, answer, translation, imageURI)
         return card
     }
-
-
 }

@@ -12,26 +12,28 @@ import androidx.recyclerview.widget.RecyclerView
 
 
 class CustomRecyclerAdapter(
-    private var cards: List<Card>,
-    private val onClick: (pos: Int) -> Unit
+   // private var cards: List<Card>,
+   // private val onClick: (pos: Int) -> Unit
+    private val action: ActionInterface,
 ) :
-    RecyclerView.Adapter<CustomRecyclerAdapter.MyViewHolder>() {
-    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    RecyclerView.Adapter<CustomRecyclerAdapter.CardHolder>() {
+    class CardHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val thumbnailImage: ImageView = itemView.findViewById(R.id.thumbnail)
         val largeTextView: TextView = itemView.findViewById(R.id.textViewLarge)
         val smallTextView: TextView = itemView.findViewById(R.id.textViewSmall)
         val deleteImage: ImageView = itemView.findViewById(R.id.deleter)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val itemView =
-            LayoutInflater.from(parent.context).inflate(R.layout.recycler_item, parent, false)
-        return MyViewHolder(itemView)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardHolder {
+        val itemView = LayoutInflater
+            .from(parent.context)
+            .inflate(R.layout.recycler_item, parent, false)
+        return CardHolder(itemView)
     }
 
     override fun getItemCount() = cards.size
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CardHolder, position: Int) {
         val card = cards[position]
         if (card.imageURI != null) {
             holder.thumbnailImage.setImageURI(cards[position].imageURI)
@@ -41,30 +43,22 @@ class CustomRecyclerAdapter(
         holder.largeTextView.text = card.answer
         holder.smallTextView.text = card.translation
         holder.itemView.setOnClickListener {
-/*
-            val intent = Intent(it.context, SeeCardActivity::class.java)
-            intent.putExtra("position", position)
-            ContextCompat.startActivity(it.context, intent, Bundle())
-*/
-            onClick(position)
+            action.onItemClick(card.id)
         }
         holder.deleteImage.setOnClickListener {
-            AlertDialog.Builder(it.context).setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle("Вы действительно хотите удалить карточку?")
-                .setMessage("Будет удалена карточка:\n ${card.answer} / ${card.translation}")
-                .setPositiveButton("Да") { _, _ ->
-                    Model.removeCard(card.id)
-                    refreshCardsViewWith(Model.cards)
-                }.setNegativeButton("Нет") { _, _ ->
-                    Toast.makeText(
-                        it.context, "Удаление отменено", Toast.LENGTH_LONG
-                    ).show()
-                }.show()
+           action.onDeleteCard(card.id)
         }
     }
 
-    fun refreshCardsViewWith(cards: List<Card>) {
-        this.cards = cards
-        notifyDataSetChanged()
-    }
+    var cards:List<Card> = emptyList()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
+        get() = field
+}
+
+interface ActionInterface {
+    fun onItemClick(cardId:Int)
+    fun onDeleteCard(cardId: Int)
 }

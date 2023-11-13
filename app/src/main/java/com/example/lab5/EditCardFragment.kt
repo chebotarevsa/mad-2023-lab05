@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.lab5.databinding.FragmentEditCardBinding
 
 private const val ARG_PARAM1 = "param1"
@@ -19,14 +20,8 @@ class EditCardFragment : Fragment() {
     private val binding get() = _binding!!
     private var imageUri: Uri? = null
 
-    private var cardId: Int = 0
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            cardId = it.getInt(ARG_PARAM1)
-        }
-    }
+    private val args by navArgs<EditCardFragmentArgs>()
+    private val cardId by lazy { args.cardId }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -75,10 +70,9 @@ class EditCardFragment : Fragment() {
                 card, question, example, answer, translation, imageUri
             )
             Model.updateCardList(cardId, newCard)
-            val action = EditCardFragmentDirections.actionEditCardFragmentToSeeCardFragment()
+            val action = EditCardFragmentDirections.actionEditCardFragmentToSeeCardFragment(cardId)
             findNavController().navigate(action)
         }
-
         return binding.root
     }
 
@@ -93,16 +87,5 @@ class EditCardFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-    }
-
-
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String) =
-            EditCardFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                }
-            }
     }
 }

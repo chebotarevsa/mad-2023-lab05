@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.lab5.databinding.FragmentSeeCardBinding
 
 private const val ARG_PARAM1 = "param1"
@@ -13,14 +14,8 @@ private const val ARG_PARAM1 = "param1"
 class SeeCardFragment : Fragment() {
     private var _binding: FragmentSeeCardBinding? = null
     private val binding get() = _binding!!
-    private var cardId: Int = 0
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            cardId = it.getInt(ARG_PARAM1)
-        }
-    }
+    private val args by navArgs<SeeCardFragmentArgs>()
+    private val cardId by lazy { args.cardId }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +31,7 @@ class SeeCardFragment : Fragment() {
         binding.cardThumbnail.setImageURI(card.imageURI)
 
         binding.editButton.setOnClickListener {
-            val action = SeeCardFragmentDirections.actionSeeCardFragmentToEditCardFragment()
+            val action = SeeCardFragmentDirections.actionSeeCardFragmentToEditCardFragment(cardId)
             findNavController().navigate(action)
         }
 
@@ -54,14 +49,4 @@ class SeeCardFragment : Fragment() {
         _binding = null
     }
 
-
-    companion object {
-        @JvmStatic
-        fun newInstance(cardId: Int) =
-            SeeCardFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(ARG_PARAM1, cardId)
-                }
-            }
-    }
 }

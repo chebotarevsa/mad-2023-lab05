@@ -27,6 +27,9 @@
         <action
             android:id="@+id/action_seeCardFragment_to_listCardFragment"
             app:destination="@id/listCardFragment" />
+        <argument
+            android:name="cardId"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/editCardFragment"
@@ -36,6 +39,9 @@
         <action
             android:id="@+id/action_editCardFragment_to_seeCardFragment"
             app:destination="@id/seeCardFragment" />
+        <argument
+            android:name="cardId"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/addCardFragment"
