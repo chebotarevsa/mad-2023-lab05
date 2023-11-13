@@ -28,7 +28,9 @@ class SeeCardFragment : Fragment() {
         binding.cardExample.text = getString(R.string.exampleField, card.example)
         binding.cardAnswer.text = getString(R.string.answerField, card.answer)
         binding.cardTranslation.text = getString(R.string.translationField, card.translation)
-        binding.cardThumbnail.setImageURI(card.imageURI)
+        card.image?.let {
+            binding.cardThumbnail.setImageBitmap(it)
+        }
 
         binding.editButton.setOnClickListener {
             val action = SeeCardFragmentDirections.actionSeeCardFragmentToEditCardFragment(cardId)

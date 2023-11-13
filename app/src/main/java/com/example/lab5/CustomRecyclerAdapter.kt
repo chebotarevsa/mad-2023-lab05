@@ -35,8 +35,8 @@ class CustomRecyclerAdapter(
 
     override fun onBindViewHolder(holder: CardHolder, position: Int) {
         val card = cards[position]
-        if (card.imageURI != null) {
-            holder.thumbnailImage.setImageURI(cards[position].imageURI)
+        if (card.image != null) {
+            holder.thumbnailImage.setImageBitmap(cards[position].image)
         } else {
             holder.thumbnailImage.setImageResource(R.drawable.wallpapericon)
         }

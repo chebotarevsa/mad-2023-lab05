@@ -1,5 +1,6 @@
 package com.example.lab5
 
+import android.graphics.Bitmap
 import android.net.Uri
 
 object Model {
@@ -63,16 +64,16 @@ object Model {
         example: String,
         answer: String,
         translation: String,
-        imageURI: Uri?
+        image: Bitmap?
     ): Card {
-        return oldCard.copy(oldCard.id, question, example, answer, translation, imageURI)
+        return oldCard.copy(oldCard.id, question, example, answer, translation, image)
     }
 
     fun createNewCard(
-        question: String, example: String, answer: String, translation: String, imageURI: Uri?
+        question: String, example: String, answer: String, translation: String, image:Bitmap?
     ): Card {
         val nextId = _cards.maxBy { it.id }.id + 1
-        val card = Card(nextId, question, example, answer, translation, imageURI)
+        val card = Card(nextId, question, example, answer, translation, image)
         return card
     }
 }

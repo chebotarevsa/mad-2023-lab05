@@ -1,8 +1,12 @@
 package com.example.lab5
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +21,7 @@ private const val ARG_PARAM2 = "param2"
 class AddCardFragment : Fragment() {
     private var _binding: FragmentAddCardBinding? = null
     private val binding get() = _binding!!
-    private var imageUri: Uri? = null
+    private var image: Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +65,7 @@ class AddCardFragment : Fragment() {
                 else -> "Поле перевода отсутствует"
             }
             val newCard = Model.createNewCard(
-                question, example, answer, translation, imageUri
+                question, example, answer, translation,  image
             )
             Model.addCard(newCard)
             val action = AddCardFragmentDirections.actionAddCardFragmentToListCardFragment()
@@ -73,10 +77,8 @@ class AddCardFragment : Fragment() {
 
 
     private val getSystemContent = registerForActivityResult(ActivityResultContracts.GetContent()) {
-        imageUri = it
-        val name = requireActivity().packageName
-        requireActivity().grantUriPermission(name, it, Intent.FLAG_GRANT_READ_URI_PERMISSION)
-        binding.cardImage.setImageURI(it)
+        image = it.bitmap(requireContext())
+        binding.cardImage.setImageBitmap(image)
     }
 
     override fun onDestroy() {

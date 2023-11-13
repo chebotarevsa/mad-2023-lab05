@@ -1,8 +1,14 @@
 package com.example.lab5
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapRegionDecoder
+import android.graphics.ImageDecoder
+import android.graphics.Rect
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,13 +18,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.lab5.databinding.FragmentEditCardBinding
 
+
 private const val ARG_PARAM1 = "param1"
 
 class EditCardFragment : Fragment() {
 
     private var _binding: FragmentEditCardBinding? = null
     private val binding get() = _binding!!
-    private var imageUri: Uri? = null
+    private var image:Bitmap? = null
 
     private val args by navArgs<EditCardFragmentArgs>()
     private val cardId by lazy { args.cardId }
@@ -34,8 +41,9 @@ class EditCardFragment : Fragment() {
         binding.exampleField.setText(card.example)
         binding.answerField.setText(card.answer)
         binding.translationField.setText(card.translation)
-        binding.cardImage.setImageURI(card.imageURI)
-        imageUri = card.imageURI
+        card.image?.let {
+            binding.cardImage.setImageBitmap(it)
+        }
 
         binding.cardImage.setOnClickListener {
             getSystemContent.launch("image/*")
@@ -63,11 +71,10 @@ class EditCardFragment : Fragment() {
             val translation = when {
                 binding.translationField.text.toString()
                     .isNotEmpty() -> binding.translationField.text.toString()
-
                 else -> "Поле перевода отсутствует"
             }
             val newCard = Model.updateCard(
-                card, question, example, answer, translation, imageUri
+                card, question, example, answer, translation, image
             )
             Model.updateCardList(cardId, newCard)
             val action = EditCardFragmentDirections.actionEditCardFragmentToSeeCardFragment(cardId)
@@ -78,10 +85,8 @@ class EditCardFragment : Fragment() {
 
 
     private val getSystemContent = registerForActivityResult(ActivityResultContracts.GetContent()) {
-        imageUri = it
-        val name = requireActivity().packageName
-        requireActivity().grantUriPermission(name, it, Intent.FLAG_GRANT_READ_URI_PERMISSION)
-        binding.cardImage.setImageURI(it)
+        image = it.bitmap(requireContext())
+        binding.cardImage.setImageBitmap(image)
     }
 
     override fun onDestroy() {

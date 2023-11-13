@@ -67,6 +67,5 @@ class ListCardFragment : Fragment() {
                     ).show()
                 }.show()
         }
-
     }
 }
