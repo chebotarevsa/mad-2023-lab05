@@ -22,7 +22,7 @@
             android:name=".EditCardActivity"
             android:exported="false" />
         <activity
-            android:name=".CardListActivity"
+            android:name=".ListCardActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

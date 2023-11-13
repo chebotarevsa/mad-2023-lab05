@@ -24,5 +24,6 @@
 
     <string name="currOrPlaceholder">Картинка (текущая или заглушка)</string>
     <string name="textPlaceholder">Тут текст</string>
+    <string name="hello_blank_fragment">hello_blank_fragment</string>
 
 </resources>

@@ -23,4 +23,5 @@
     <string name="currOrPlaceholder">Current picture or placeholder</string>
 
     <string name="textPlaceholder">i\'m text</string>
+    <string name="hello_blank_fragment">hello_blank_fragment</string>
 </resources>

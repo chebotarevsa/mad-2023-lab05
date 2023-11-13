@@ -2,19 +2,19 @@ package com.example.lab5
 
 
 import android.app.AlertDialog
-import android.content.Intent
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
 
-class CustomRecyclerAdapter(private var cards: List<Card>) :
+class CustomRecyclerAdapter(
+    private var cards: List<Card>,
+    private val onClick: (pos: Int) -> Unit
+) :
     RecyclerView.Adapter<CustomRecyclerAdapter.MyViewHolder>() {
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val thumbnailImage: ImageView = itemView.findViewById(R.id.thumbnail)
@@ -41,9 +41,12 @@ class CustomRecyclerAdapter(private var cards: List<Card>) :
         holder.largeTextView.text = card.answer
         holder.smallTextView.text = card.translation
         holder.itemView.setOnClickListener {
+/*
             val intent = Intent(it.context, SeeCardActivity::class.java)
             intent.putExtra("position", position)
             ContextCompat.startActivity(it.context, intent, Bundle())
+*/
+            onClick(position)
         }
         holder.deleteImage.setOnClickListener {
             AlertDialog.Builder(it.context).setIcon(android.R.drawable.ic_dialog_alert)

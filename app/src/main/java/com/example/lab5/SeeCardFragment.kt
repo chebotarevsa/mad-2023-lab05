@@ -1,0 +1,67 @@
+package com.example.lab5
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.lab5.databinding.FragmentSeeCardBinding
+
+private const val ARG_PARAM1 = "param1"
+
+class SeeCardFragment : Fragment() {
+    private var _binding: FragmentSeeCardBinding? = null
+    private val binding get() = _binding!!
+    private var cardId: Int = 0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            cardId = it.getInt(ARG_PARAM1)
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentSeeCardBinding.inflate(layoutInflater, container, false)
+        val card = Model.cards.get(cardId)
+
+        binding.cardQuestion.text = getString(R.string.questionField, card.question)
+        binding.cardExample.text = getString(R.string.exampleField, card.example)
+        binding.cardAnswer.text = getString(R.string.answerField, card.answer)
+        binding.cardTranslation.text = getString(R.string.translationField, card.translation)
+        binding.cardThumbnail.setImageURI(card.imageURI)
+
+        binding.editButton.setOnClickListener {
+            val action = SeeCardFragmentDirections.actionSeeCardFragmentToEditCardFragment()
+            findNavController().navigate(action)
+        }
+
+        binding.backButton.setOnClickListener {
+            val action = SeeCardFragmentDirections.actionSeeCardFragmentToListCardFragment()
+            findNavController().navigate(action)
+        }
+
+        return binding.root
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
+
+    companion object {
+        @JvmStatic
+        fun newInstance(cardId: Int) =
+            SeeCardFragment().apply {
+                arguments = Bundle().apply {
+                    putInt(ARG_PARAM1, cardId)
+                }
+            }
+    }
+}
