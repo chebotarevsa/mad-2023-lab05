@@ -19,9 +19,7 @@ class ListCardFragment : Fragment() {
     private lateinit var adapter: CustomRecyclerAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentListCardBinding.inflate(layoutInflater, container, false)
         val recyclerView: RecyclerView = binding.recyclerid

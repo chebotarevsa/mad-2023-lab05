@@ -2,7 +2,6 @@ package com.example.lab5
 
 
 import android.graphics.Bitmap
-import android.net.Uri
 
 data class Card(
     val id: Int,
@@ -10,5 +9,5 @@ data class Card(
     val example: String,
     val answer: String,
     val translation: String,
-    val image:Bitmap? = null
+    val image: Bitmap? = null
 )

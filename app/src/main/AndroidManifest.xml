@@ -13,15 +13,6 @@
         android:theme="@style/Theme.Lab5"
         tools:targetApi="34">
         <activity
-            android:name=".AddCardActivity"
-            android:exported="true" />
-        <activity
-            android:name=".SeeCardActivity"
-            android:exported="false" />
-        <activity
-            android:name=".EditCardActivity"
-            android:exported="false" />
-        <activity
             android:name=".ListCardActivity"
             android:exported="true">
             <intent-filter>

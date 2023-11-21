@@ -1,14 +1,7 @@
 package com.example.lab5
 
-import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapRegionDecoder
-import android.graphics.ImageDecoder
-import android.graphics.Rect
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,21 +11,17 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.lab5.databinding.FragmentEditCardBinding
 
-
-private const val ARG_PARAM1 = "param1"
-
 class EditCardFragment : Fragment() {
 
     private var _binding: FragmentEditCardBinding? = null
     private val binding get() = _binding!!
-    private var image:Bitmap? = null
+    private var image: Bitmap? = null
 
     private val args by navArgs<EditCardFragmentArgs>()
     private val cardId by lazy { args.cardId }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentEditCardBinding.inflate(layoutInflater, container, false)
         val card = Model.cards.get(cardId)
@@ -53,24 +42,22 @@ class EditCardFragment : Fragment() {
             val question = when {
                 binding.questionField.text.toString()
                     .isNotEmpty() -> binding.questionField.text.toString()
-
                 else -> "Поле вопроса отсутствует"
             }
             val example = when {
                 binding.exampleField.text.toString()
                     .isNotEmpty() -> binding.exampleField.text.toString()
-
                 else -> "Поле примера отсутствует"
             }
             val answer = when {
                 binding.answerField.text.toString()
                     .isNotEmpty() -> binding.answerField.text.toString()
-
                 else -> "Поле ответа отсутствует"
             }
             val translation = when {
                 binding.translationField.text.toString()
                     .isNotEmpty() -> binding.translationField.text.toString()
+
                 else -> "Поле перевода отсутствует"
             }
             val newCard = Model.updateCard(
@@ -82,7 +69,6 @@ class EditCardFragment : Fragment() {
         }
         return binding.root
     }
-
 
     private val getSystemContent = registerForActivityResult(ActivityResultContracts.GetContent()) {
         image = it.bitmap(requireContext())

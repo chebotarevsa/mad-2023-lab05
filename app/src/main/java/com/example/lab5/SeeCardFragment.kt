@@ -9,7 +9,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.lab5.databinding.FragmentSeeCardBinding
 
-private const val ARG_PARAM1 = "param1"
 
 class SeeCardFragment : Fragment() {
     private var _binding: FragmentSeeCardBinding? = null
@@ -18,8 +17,7 @@ class SeeCardFragment : Fragment() {
     private val cardId by lazy { args.cardId }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSeeCardBinding.inflate(layoutInflater, container, false)
         val card = Model.cards.get(cardId)
@@ -45,10 +43,8 @@ class SeeCardFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
-
 }
