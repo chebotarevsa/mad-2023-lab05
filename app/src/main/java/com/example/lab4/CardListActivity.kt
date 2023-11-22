@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lab4.databinding.ListBinding
 
-class CardList : AppCompatActivity() {
+class CardListActivity : AppCompatActivity() {
     lateinit var binding: ListBinding  //Будет инициализированно позже - lateinit
     lateinit var adapter: AdapterRecyclerView
 

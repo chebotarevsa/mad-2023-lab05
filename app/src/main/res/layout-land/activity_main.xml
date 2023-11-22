@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".CardList">
+        tools:context=".CardListActivity">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerId"
@@ -25,12 +25,12 @@
             android:src="@drawable/add"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.955"
+            app:layout_constraintHorizontal_bias="0.9"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.976"
+            app:layout_constraintVertical_bias="0.95"
             app:maxImageSize="32sp"
-            android:contentDescription="@string/addButton"/>
+            android:contentDescription="@string/addButton" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

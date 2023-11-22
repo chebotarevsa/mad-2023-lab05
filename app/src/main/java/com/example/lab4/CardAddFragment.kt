@@ -1,17 +1,23 @@
 package com.example.lab4
 
 import android.content.Intent
-import android.net.Uri
+import android.graphics.Bitmap
 import android.os.Bundle
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.example.lab4.databinding.CardaddBinding
 
-class CardAdd : AppCompatActivity() {
-    lateinit var binding: CardaddBinding //Будет инициализированно позже - lateinit
-    private var imageUri: Uri? = null //? - разрешение на нулевое значение - может позднее инициализировать, а может вообще нет
+class CardAddFragment : Fragment() {
+    private var _binding: FragmentAddCardBinding? = null
+    private val binding get() = _binding!!
+    private var image: Bitmap? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         supportActionBar?.hide()
         super.onCreate(savedInstanceState)
         binding = CardaddBinding.inflate(layoutInflater) //Надувание из хмл в вью
@@ -56,10 +62,4 @@ class CardAdd : AppCompatActivity() {
         }
     }
 
-    private val getSystemContent = registerForActivityResult(ActivityResultContracts.GetContent()) {
-        imageUri = it //Тут выбранная картиночка будет лежать
-        val name = this.packageName //Тут берётся какое-то "пакетное имя" приложения, куда картиночка будет вставляться (наше приложение)
-        this.grantUriPermission(name, it, Intent.FLAG_GRANT_READ_URI_PERMISSION) //Получение разрешения на чтение картиночки для нашего приложения
-        binding.cardImage.setImageURI(it) //Собственно, вставка картиночки
-    }
 }
