@@ -18,8 +18,7 @@ class MainFragment : Fragment(), ActionInterface {
     private lateinit var adapter: CardAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         val cards = Model.cards
@@ -70,6 +69,7 @@ class MainFragment : Fragment(), ActionInterface {
         dialog.setButtonColors(R.color.red, R.color.green)
         dialog.show()
     }
+
     private fun AlertDialog.setButtonColors(yesButtonColorResId: Int, cancelButtonColorResId: Int) {
         val yesButtonColor = ContextCompat.getColor(context, yesButtonColorResId)
         val cancelButtonColor = ContextCompat.getColor(context, cancelButtonColorResId)

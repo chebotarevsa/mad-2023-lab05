@@ -14,7 +14,8 @@ class CardAdapter(
     private val context: Context
 ) : RecyclerView.Adapter<CardAdapter.CardViewHolder>() {
 
-    class CardViewHolder(private val binding: RecyclerItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class CardViewHolder(private val binding: RecyclerItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         val thumbnail: ImageView = binding.thumbnail
         val answerText: TextView = binding.answer
         val translateText: TextView = binding.translate
@@ -22,7 +23,8 @@ class CardAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
-        val binding = RecyclerItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            RecyclerItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return CardViewHolder(binding)
     }
 
@@ -33,7 +35,11 @@ class CardAdapter(
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
         val card = cardList[position]
 
-        holder.thumbnail.setImageURI(card.image)
+        if (card.image != null) {
+            holder.thumbnail.setImageBitmap(cardList[position].image)
+        } else {
+            holder.thumbnail.setImageResource(R.drawable.panorama_outline)
+        }
         holder.answerText.text = card.answer
         holder.translateText.text = card.translate
 
@@ -47,13 +53,13 @@ class CardAdapter(
     }
 
 
-
     fun setCards(cardList: List<Card>) {
         this.cardList = cardList
         notifyDataSetChanged()
     }
 
 }
+
 interface ActionInterface {
     fun onItemClick(cardId: Int)
     fun onDeleteCard(cardId: Int)

@@ -1,13 +1,13 @@
 package com.example.myapplication
 
-import android.net.Uri
+import android.graphics.Bitmap
 
-data class Card (
+data class Card(
     val id: Int,
     val question: String,
-    val example:String,
+    val example: String,
     val answer: String,
     val translate: String,
-    val image: Uri?=null,
+    val image: Bitmap? = null,
 )
 

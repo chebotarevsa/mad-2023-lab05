@@ -15,8 +15,7 @@ class ViewCardFragment : Fragment() {
     private val args by navArgs<ViewCardFragmentArgs>()
     private val cardId by lazy { args.cardId }
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         super.onCreate(savedInstanceState)
         _binding = FragmentViewCardBinding.inflate(layoutInflater, container, false)
@@ -27,7 +26,7 @@ class ViewCardFragment : Fragment() {
         binding.hintTextCard.text = getString(R.string.hintT, card.example)
         binding.answerTextCard.text = getString(R.string.answerT, card.answer)
         binding.translationTextCard.text = getString(R.string.translateT, card.translate)
-        binding.cardImage.setImageURI(card.image)
+        card.image?.let { binding.cardImage.setImageBitmap(it) }
 
         binding.edit.setOnClickListener {
             val action = ViewCardFragmentDirections.actionViewCardFragmentToEditCardFragment(cardId)

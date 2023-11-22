@@ -1,7 +1,6 @@
 package com.example.myapplication
 
-import android.content.Intent
-import android.net.Uri
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,11 +14,10 @@ import com.google.android.material.snackbar.Snackbar
 class AddCardFragment : Fragment() {
     private var _binding: FragmentAddCardBinding? = null
     private val binding get() = _binding!!
-    private var imageUri: Uri? = null
+    private var image: Bitmap? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         super.onCreate(savedInstanceState)
         _binding = FragmentAddCardBinding.inflate(layoutInflater, container, false)
@@ -30,7 +28,7 @@ class AddCardFragment : Fragment() {
                 val example = binding.hintAddText.text.toString()
                 val answer = binding.answerAddText.text.toString()
                 val translation = binding.translationAddText.text.toString()
-                val newCard = Model.NewCard(question, example, answer, translation, imageUri)
+                val newCard = Model.NewCard(question, example, answer, translation, image)
                 Model.addCard(newCard)
                 val action = AddCardFragmentDirections.actionAddCardFragmentToMainFragment()
                 findNavController().navigate(action)
@@ -44,11 +42,9 @@ class AddCardFragment : Fragment() {
         }
         return binding.root
     }
+
     private fun fieldsValid(): Boolean {
-        return binding.questionAddText.text.isNotEmpty() &&
-                binding.hintAddText.text.isNotEmpty() &&
-                binding.answerAddText.text.isNotEmpty() &&
-                binding.translationAddText.text.isNotEmpty()
+        return binding.questionAddText.text.isNotEmpty() && binding.hintAddText.text.isNotEmpty() && binding.answerAddText.text.isNotEmpty() && binding.translationAddText.text.isNotEmpty()
     }
 
     private fun fieldsIncompleteError() {
@@ -57,9 +53,7 @@ class AddCardFragment : Fragment() {
     }
 
     private val getSystemContent = registerForActivityResult(ActivityResultContracts.GetContent()) {
-        imageUri = it
-        val name = requireActivity().packageName
-        requireActivity().grantUriPermission(name, it, Intent.FLAG_GRANT_READ_URI_PERMISSION)
-        binding.cardImage.setImageURI(it)
+        image = it.bitmap(requireContext())
+        binding.cardImage.setImageBitmap(image)
     }
 }
