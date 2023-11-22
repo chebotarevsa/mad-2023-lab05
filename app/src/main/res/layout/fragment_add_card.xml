@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditCardActivity">
+    tools:context=".AddCardFragment">
 
     <ImageView
         android:id="@+id/cardImage"
@@ -15,15 +15,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/questionEditText"
+        app:layout_constraintBottom_toTopOf="@+id/questionAddText"
         android:layout_marginTop="@dimen/card_view_image_margin_top" />
 
     <EditText
-        android:id="@+id/questionEditText"
+        android:id="@+id/questionAddText"
         android:layout_width="@dimen/textWrite"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/card_view_text_margin"
-        android:hint="@string/questionT"
+        android:hint="@string/questionAdd"
         android:inputType="text"
         android:minHeight="@dimen/minH"
         android:textSize="@dimen/textSize"
@@ -32,43 +32,43 @@
         app:layout_constraintTop_toBottomOf="@+id/cardImage" />
 
     <EditText
-        android:id="@+id/hintEditText"
+        android:id="@+id/hintAddText"
         android:layout_width="@dimen/textWrite"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/card_view_text_margin"
-        android:hint="@string/hintT"
+        android:hint="@string/hintAdd"
         android:inputType="text"
         android:minHeight="@dimen/minH"
         android:textSize="@dimen/textSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/questionEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/questionAddText" />
 
     <EditText
-        android:id="@+id/answerEditText"
+        android:id="@+id/answerAddText"
         android:layout_width="@dimen/textWrite"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/card_view_text_margin"
-        android:hint="@string/answerT"
+        android:hint="@string/answerAdd"
         android:inputType="text"
         android:minHeight="@dimen/minH"
         android:textSize="@dimen/textSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hintEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/hintAddText" />
 
     <EditText
-        android:id="@+id/translationEditText"
+        android:id="@+id/translationAddText"
         android:layout_width="@dimen/textWrite"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/card_view_text_margin"
-        android:hint="@string/translateT"
+        android:hint="@string/translateAdd"
         android:inputType="text"
         android:minHeight="@dimen/minH"
         android:textSize="@dimen/textSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/answerEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/answerAddText" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
