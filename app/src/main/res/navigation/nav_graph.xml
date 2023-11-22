@@ -6,28 +6,28 @@
     app:startDestination="@id/cardListFragment">
     <fragment
         android:id="@+id/cardListFragment"
-        android:name="com.example.lab4.CardListFragment"
+        android:name="com.example.lab5.CardListFragment"
         android:label="fragment_card_list"
         tools:layout="@layout/fragment_card_list" >
         <action
-            android:id="@+id/action_cardListFragment2_to_cardAddFragment4"
+            android:id="@+id/action_cardListFragment_to_cardAddFragment"
             app:destination="@id/cardAddFragment" />
         <action
-            android:id="@+id/action_cardListFragment2_to_cardSeeFragment"
+            android:id="@+id/action_cardListFragment_to_cardSeeFragment"
             app:destination="@id/cardSeeFragment" />
     </fragment>
     <fragment
         android:id="@+id/cardAddFragment"
-        android:name="com.example.lab4.CardAddFragment"
+        android:name="com.example.lab5.CardAddFragment"
         android:label="fragment_card_add"
         tools:layout="@layout/fragment_card_add" >
         <action
-            android:id="@+id/action_cardAddFragment4_to_cardListFragment2"
+            android:id="@+id/action_cardAddFragment_to_cardListFragment"
             app:destination="@id/cardListFragment" />
     </fragment>
     <fragment
         android:id="@+id/cardEditFragment"
-        android:name="com.example.lab4.CardEditFragment"
+        android:name="com.example.lab5.CardEditFragment"
         android:label="fragment_card_edit"
         tools:layout="@layout/fragment_card_edit" >
         <action
@@ -39,11 +39,11 @@
     </fragment>
     <fragment
         android:id="@+id/cardSeeFragment"
-        android:name="com.example.lab4.CardSeeFragment"
+        android:name="com.example.lab5.CardSeeFragment"
         android:label="fragment_card_see"
         tools:layout="@layout/fragment_card_see" >
         <action
-            android:id="@+id/action_cardSeeFragment_to_cardListFragment2"
+            android:id="@+id/action_cardSeeFragment_to_cardListFragment"
             app:destination="@id/cardListFragment" />
         <action
             android:id="@+id/action_cardSeeFragment_to_cardEditFragment"
