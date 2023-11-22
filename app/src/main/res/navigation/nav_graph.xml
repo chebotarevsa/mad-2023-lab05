@@ -10,7 +10,7 @@
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
-            android:id="@+id/action_mainFragment_to_addCardFragment2"
+            android:id="@+id/action_mainFragment_to_addCardFragment"
             app:destination="@id/addCardFragment" />
         <action
             android:id="@+id/action_mainFragment_to_viewCardFragment"
@@ -22,7 +22,7 @@
         android:label="fragment_add_card"
         tools:layout="@layout/fragment_add_card" >
         <action
-            android:id="@+id/action_addCardFragment2_to_mainFragment"
+            android:id="@+id/action_addCardFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
     </fragment>
     <fragment

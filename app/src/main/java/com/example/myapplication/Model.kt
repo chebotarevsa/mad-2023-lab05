@@ -59,4 +59,6 @@ object Model {
     fun removeCard(id: Int) {
         cards1.removeIf { it.id == id }
     }
+    fun getCardById(id: Int): Card =
+        cards1.first { it.id == id }
 }

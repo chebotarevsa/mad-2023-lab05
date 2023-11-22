@@ -1,59 +1,82 @@
 package com.example.myapplication
 
+import android.app.AlertDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.databinding.FragmentMainBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [MainFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class MainFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+class MainFragment : Fragment(), ActionInterface {
+    private var _binding: FragmentMainBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var adapter: CardAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main, container, false)
+    ): View {
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        val cards = Model.cards
+
+        val recyclerView: RecyclerView = binding.recid
+        recyclerView.layoutManager = LinearLayoutManager(requireActivity())
+        adapter = CardAdapter(this, cards, requireContext())
+        recyclerView.adapter = adapter
+
+        binding.add.setOnClickListener {
+            val action = MainFragmentDirections.actionMainFragmentToAddCardFragment()
+            findNavController().navigate(action)
+        }
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MainFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MainFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun onItemClick(cardId: Int) {
+        val action = MainFragmentDirections.actionMainFragmentToViewCardFragment(cardId)
+        findNavController().navigate(action)
+    }
+
+    override fun onDeleteCard(cardId: Int) {
+        val card = Model.getCardById(cardId)
+        deleteDialog(card)
+    }
+
+    private fun deleteDialog(card: Card) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle(getString(R.string.delete_card_title))
+        builder.setMessage(getString(R.string.delete_card_message))
+
+        builder.setPositiveButton(getString(R.string.yes)) { _, _ ->
+            Model.removeCard(card.id)
+            adapter.setCards(Model.cards)
+        }
+
+        builder.setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        val dialog = builder.create()
+        dialog.setButtonColors(R.color.red, R.color.green)
+        dialog.show()
+    }
+    private fun AlertDialog.setButtonColors(yesButtonColorResId: Int, cancelButtonColorResId: Int) {
+        val yesButtonColor = ContextCompat.getColor(context, yesButtonColorResId)
+        val cancelButtonColor = ContextCompat.getColor(context, cancelButtonColorResId)
+
+        setOnShowListener {
+            getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(yesButtonColor)
+            getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(cancelButtonColor)
+        }
     }
 }
