@@ -13,16 +13,6 @@
         android:theme="@style/Theme.Lab4Mobile"
         tools:targetApi="31">
         <activity
-            android:name="com.example.lab5mobile.ViewCard"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            />
-        <activity
-            android:name="com.example.lab5mobile.AddCardActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            />
-        <activity
             android:name="com.example.lab5mobile.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"

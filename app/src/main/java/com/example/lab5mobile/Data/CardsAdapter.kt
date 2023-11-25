@@ -1,4 +1,4 @@
-package com.example.lab4mobile.Data
+package com.example.lab5mobile.Data
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.la5mobile.R
 import com.example.la5mobile.databinding.ItemCardBinding
-import com.example.lab5mobile.Data.TermCard
 
 interface CallbackFun {
     fun showCard(index: Int): Unit

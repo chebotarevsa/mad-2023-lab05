@@ -3,36 +3,37 @@ package com.example.lab5mobile
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.la5mobile.R
-import com.example.la5mobile.databinding.AddCardBinding
+import com.example.la5mobile.databinding.FragmentAddCardBinding
 import com.example.lab5mobile.Data.CardsRepository
 
-
-
-
 const val NEW_CARD = -1
-class AddCardActivity : AppCompatActivity() {
+class AddCardFragment : Fragment() {
 
-    private val REQUEST_IMAGE_PICK = 1
-    private lateinit var binding: AddCardBinding
-    private var imageBIT:Bitmap? = null
-    private var index = NEW_CARD
+    private lateinit var binding: FragmentAddCardBinding
+    private var imageBIT: Bitmap? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-        binding = AddCardBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+    private val args by navArgs<AddCardFragmentArgs>()
+    private val index by lazy { args.id }
 
-        index = intent.getIntExtra("index", index)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        this.activity
+        binding = FragmentAddCardBinding.inflate(inflater, container, false)
 
         if (index != NEW_CARD) {
             val card = CardsRepository.getCards()[index]
-            // получение данных из интента editButton ViewCard
             binding.editTextText.setText(card.question)
             binding.editTextText2.setText(card.example)
             binding.editTextText3.setText(card.answer)
@@ -46,18 +47,21 @@ class AddCardActivity : AppCompatActivity() {
         }
 
         binding.imageView2.setOnClickListener {
-            getImage.launch( "image/*")
+            getImage.launch("image/*")
         }
 
         binding.button.setOnClickListener {
             addTermCard()
         }
+
+        return binding.root
     }
 
-    private val getImage  = registerForActivityResult(ImageContract()){ uri ->
+
+    private val getImage = registerForActivityResult(ImageContract()) { uri ->
         uri?.let {
             val image = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                ImageDecoder.createSource(this.contentResolver,uri)
+                ImageDecoder.createSource(this.requireContext().contentResolver, uri)
             } else {
                 TODO("VERSION.SDK_INT < P")
             }
@@ -65,6 +69,7 @@ class AddCardActivity : AppCompatActivity() {
             binding.imageView2.setImageBitmap(imageBIT)
         }
     }
+
 
     //добавление карточки
     private fun addTermCard() {
@@ -77,7 +82,7 @@ class AddCardActivity : AppCompatActivity() {
 
         // проверка на заполненность полей
         if (question.isEmpty() || hint.isEmpty() || answer.isEmpty() || translate.isEmpty()) {
-            Toast.makeText(this, "Заполните все поля", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this.context, "Заполните все поля", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -87,7 +92,6 @@ class AddCardActivity : AppCompatActivity() {
         } else {
             CardsRepository.replaceCard(newCard, index)
         }
-
-        finish()
+        findNavController().popBackStack()
     }
 }
