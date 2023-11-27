@@ -21,4 +21,9 @@
     <string name="edit_button">Кнопка изменения</string>
     <string name="save_button">Кнопка сохранения</string>
     <string name="image_place">Место картинки</string>
+
+    <string name="question_field_empty">Поле вопроса отсутствует</string>
+    <string name="example_field_empty">Поле примера отсутствует</string>
+    <string name="answer_field_empty">Поле ответа отсутствует</string>
+    <string name="translation_field_empty">Поле перевода отсутствует</string>
 </resources>
