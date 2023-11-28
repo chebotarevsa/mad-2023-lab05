@@ -31,28 +31,28 @@ class AddFragment : Fragment() {
                 binding.enterQuestion.text.toString()
                     .isNotEmpty() -> binding.enterQuestion.text.toString()
 
-                else -> "Поле вопроса отсутствует"
+                else -> requireContext().getString(R.string.question_field_empty)
             }
             val example = when {
                 binding.enterExample.text.toString()
                     .isNotEmpty() -> binding.enterExample.text.toString()
 
-                else -> "Поле примера отсутствует"
+                else -> requireContext().getString(R.string.example_field_empty)
             }
             val answer = when {
                 binding.enterAnswer.text.toString()
                     .isNotEmpty() -> binding.enterAnswer.text.toString()
 
-                else -> "Поле ответа отсутствует"
+                else -> requireContext().getString(R.string.answer_field_empty)
             }
             val translation = when {
                 binding.enterTranslation.text.toString()
                     .isNotEmpty() -> binding.enterTranslation.text.toString()
 
-                else -> "Поле перевода отсутствует"
+                else -> requireContext().getString(R.string.translation_field_empty)
             }
             val newCard = CardService.createNewCard(
-                question, example, answer, translation,  image
+                question, example, answer, translation, image
             )
             CardService.addCard(newCard)
             val action = AddFragmentDirections.actionAddCardFragmentToListCardFragment()
