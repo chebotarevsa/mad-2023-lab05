@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentAddCardBinding
 
@@ -16,6 +18,7 @@ class AddCardFragment : Fragment() {
     private var _binding: FragmentAddCardBinding? = null
     private val binding get() = _binding!!
     private var imageUri: Uri? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -56,9 +59,8 @@ class AddCardFragment : Fragment() {
                 question, example, answer, translation, imageUri
             )
             Cards.addCard(newCard)
-            Intent(this, CardListActivity::class.java).also {
-                startActivity(it)
-            }
+            val action = AddCardFragmentDirections.actionAddCardFragmentToCardListFragment()
+            findNavController().navigate(action)
         }
         return binding.root
     }

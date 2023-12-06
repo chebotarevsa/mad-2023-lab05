@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 
-class RecyclerAdapter(private var cards: List<Card>, private val context: Context, private val deleteDialog: (card: Card)-> Unit) :
+class RecyclerAdapter(private val action: ActionInterface) :
     RecyclerView.Adapter<RecyclerAdapter.MyViewHolder>() {
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -41,16 +41,21 @@ class RecyclerAdapter(private var cards: List<Card>, private val context: Contex
         holder.largeTextView.text = card.answer
         holder.smallTextView.text = card.translation
         holder.itemView.setOnClickListener {
-            val intent = Intent(it.context, ViewCardActivity::class.java)
-            intent.putExtra("position", position)
-            ContextCompat.startActivity(it.context, intent, Bundle())
+            action.onItemClick(card.id)
         }
         holder.deleteImage.setOnClickListener {
-            deleteDialog(card)
+            action.onDeleteCard(card.id)
         }
     }
 
-    fun setCards(cards: List<Card>){
+    var cards: List<Card> = emptyList()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
+        get() = field
+
+    fun setCards(){
         this.cards=cards
         notifyDataSetChanged()
     }
@@ -70,9 +75,9 @@ class RecyclerAdapter(private var cards: List<Card>, private val context: Contex
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
-                val deletedCard = cards[position]
+                val card = cards[position]
 
-                deleteDialog(deletedCard)
+                action.onDeleteCard(card.id)
             }
         }
 
@@ -85,4 +90,9 @@ class RecyclerAdapter(private var cards: List<Card>, private val context: Contex
         notifyDataSetChanged()
     }
 
+
+}
+interface ActionInterface {
+    fun onItemClick(cardId: Int)
+    fun onDeleteCard(cardId: Int)
 }

@@ -7,7 +7,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
@@ -16,7 +18,7 @@ import com.example.myapplication.databinding.FragmentCardListBinding
 class CardListFragment : Fragment() {
     private var _binding: FragmentCardListBinding? = null
     private val binding get() = _binding!!
-    lateinit var adapter: RecyclerAdapter
+    private lateinit var adapter: RecyclerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -24,30 +26,12 @@ class CardListFragment : Fragment() {
         super.onCreate(savedInstanceState)
         _binding = FragmentCardListBinding.inflate(layoutInflater, container, false)
 
-        val cards = Cards.cards
 
         val recyclerView: RecyclerView = binding.recyclerid
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        adapter = RecyclerAdapter(cards, requireContext()){ card->
-            val alertDialog = AlertDialog.Builder(requireContext())
-                .setTitle("Удаление карточки?")
-                .setMessage("Вы действительно хотите удалить карточку:\n ${card.translation}")
-                .setPositiveButton("Да") { _, _ ->
-                    Cards.removeCard(card.id)
-                    adapter.setCards(Cards.cards)
-                }.setNegativeButton("Нет") { _, _ ->
-                }.create()
-
-            alertDialog.setOnShowListener {
-                val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
-                positiveButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
-
-                val negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
-                negativeButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.green))
-            }
-
-            alertDialog.show()
+        adapter = RecyclerAdapter(action).apply {
+            cards = Cards.cards
         }
 
         recyclerView.adapter = adapter
@@ -55,9 +39,8 @@ class CardListFragment : Fragment() {
         adapter.enableSwipeToDelete(recyclerView)
 
         binding.addButton.setOnClickListener {
-            Intent(this, AddCardActivity::class.java).also {
-                startActivity(it)
-            }
+            val action = CardListFragmentDirections.actionCardListFragmentToAddCardFragment()
+            findNavController().navigate(action)
         }
         return binding.root
     }
@@ -71,4 +54,36 @@ class CardListFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
+
+    private val action = object : ActionInterface {
+        override fun onItemClick(cardId: Int) {
+            val action = CardListFragmentDirections.actionCardListFragmentToViewCardFragment(cardId)
+            findNavController().navigate(action)
+        }
+
+        override fun onDeleteCard(cardId: Int) {
+            showDeleteConfirmationDialog(cardId)
+        }
+    }
+
+    private fun showDeleteConfirmationDialog(cardId: Int) {
+        val card = Cards.getCardById(cardId)
+
+        AlertDialog.Builder(requireContext()).setIcon(android.R.drawable.ic_dialog_alert)
+            .setTitle("Вы действительно хотите удалить карточку?")
+            .setMessage("Будет удалена карточка:\n ${card.answer} / ${card.translation}")
+            .setPositiveButton("Да") { _, _ ->
+                Cards.removeCard(card.id)
+                adapter.refreshCardsViewWith(Cards.cards)
+                Toast.makeText(
+                    requireContext(), "Удалено успешно", Toast.LENGTH_LONG
+                ).show()
+            }.setNegativeButton("Нет") { _, _ ->
+                Toast.makeText(
+                    requireContext(), "Удаление отменено", Toast.LENGTH_LONG
+                ).show()
+                adapter.notifyItemChanged(cardId)
+            }.show()
+    }
+
 }

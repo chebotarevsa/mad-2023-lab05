@@ -50,6 +50,9 @@ object Cards {
         return oldCard.copy(oldCard.id, question, example, answer, translation, imageURI)
     }
 
+    fun getCardById(id: Int): Card =
+        _cards.first { it.id == id }
+
     fun createNewCard(
         question: String, example: String, answer: String, translation: String, imageURI: Uri?
     ): Card {

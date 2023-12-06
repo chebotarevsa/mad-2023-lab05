@@ -8,23 +8,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
-import com.example.myapplication.R
-import com.example.myapplication.databinding.FragmentCardListBinding
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.myapplication.databinding.FragmentEditCardBinding
 
 class EditCardFragment : Fragment() {
     private var _binding: FragmentEditCardBinding? = null
     private val binding get() = _binding!!
     private var imageUri: Uri? = null
+
+    private val args by navArgs<EditCardFragmentArgs>()
+    private val cardId by lazy { args.cardId }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         super.onCreate(savedInstanceState)
         _binding = FragmentEditCardBinding.inflate(layoutInflater, container, false)
 
-        val position = intent.getIntExtra("position", 0)
         val cards = Cards.cards
-        val card = cards.get(position)
+        val card = cards.get(cardId)
 
         binding.questionField.setText(card.question)
         binding.exampleField.setText(card.example)
@@ -65,21 +67,17 @@ class EditCardFragment : Fragment() {
             val newCard = Cards.updateCard(
                 card, question, example, answer, translation, imageUri
             )
-            Cards.updateCardList(position, newCard)
-            Intent(this, ViewCardActivity::class.java).apply {
-                putExtra("position", position)
-                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            }.also {
-                startActivity(it)
-            }
+            Cards.updateCardList(cardId, newCard)
+            val action = EditCardFragmentDirections.actionEditCardFragmentToViewCardFragment(cardId)
+            findNavController().navigate(action)
         }
         return binding.root
     }
 
     private val getSystemContent = registerForActivityResult(ActivityResultContracts.GetContent()) {
         imageUri = it
-        val name = this.packageName
-        this.grantUriPermission(name, it, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        val name = requireActivity().packageName
+        requireActivity().grantUriPermission(name, it, Intent.FLAG_GRANT_READ_URI_PERMISSION)
         binding.cardImage.setImageURI(it)
     }
 
