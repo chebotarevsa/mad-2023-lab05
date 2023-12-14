@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Lab5</string>
+    <string name="questionField">Question: %1$s</string>
+    <string name="exampleField">Hint: %1$s</string>
+    <string name="answerField">Answer: %1$s</string>
+    <string name="translationField">Translation: %1$s</string>
+</resources>
