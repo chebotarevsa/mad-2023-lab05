@@ -1,29 +1,30 @@
 package com.example.lab5
 
+import android.graphics.Bitmap
 import android.net.Uri
 
 object Model {
     private val _cards = mutableListOf(
         Card(
-            0,
+            "0",
             "to choose a small number of things, or to choose by making careful decisions",
             "here was a choice of four prizes, and the winner could ... one of them",
             "Select",
             "Выбрать"
         ), Card(
-            1,
+            "1",
             "to make something more modern or suitable for use now by adding new information or changing its design",
             "an ...ed version of the software",
             "Update",
             "Обновить"
         ), Card(
-            2,
+            "2",
             "to take something away",
             "An operation was needed to ... the bullets from his chest",
             "Remove",
             "Удалить"
         ), Card(
-            3,
+            "3",
             "to make something happen or exist",
             "The project will ... more than 500 jobs",
             "Create",
@@ -33,8 +34,8 @@ object Model {
     val cards
         get() = _cards.toList()
 
-    fun getCardById(id: Int): Card {
-        if (id == -1) {
+    fun getCardById(id: String): Card {
+        if (id == "-1") {
             return createNewCard("", "", "", "", null)
         } else {
             return _cards.first { it.id == id }
@@ -42,7 +43,7 @@ object Model {
         }
     }
 
-    fun removeCard(id: Int) {
+    fun deleteCard(id: String) {
         _cards.removeIf {
             it.id == id
         }
@@ -58,9 +59,9 @@ object Model {
         _cards.add(num, card2)
     }
 
-    fun updateCardList(position: Int, card: Card) {
-        _cards.remove(_cards[position])
-        _cards.add(position, card)
+    fun updateCardList(cardId: String, card: Card) {
+        _cards.remove(getCardById(cardId))
+        _cards.add(card)
     }
 
     fun updateCard(
@@ -69,16 +70,16 @@ object Model {
         example: String,
         answer: String,
         translation: String,
-        imageURI: Uri?
+        image: Bitmap?
     ): Card {
-        return oldCard.copy(oldCard.id, question, example, answer, translation, imageURI)
+        return oldCard.copy(oldCard.id, question, example, answer, translation, image)
     }
 
     fun createNewCard(
-        question: String, example: String, answer: String, translation: String, imageURI: Uri?
+        question: String, example: String, answer: String, translation: String, image: Bitmap?
     ): Card {
         val nextId = _cards.maxBy { it.id }.id + 1
-        val card = Card(nextId, question, example, answer, translation, imageURI)
+        val card = Card(nextId, question, example, answer, translation, image)
         return card
     }
 

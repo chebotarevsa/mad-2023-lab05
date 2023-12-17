@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SeeCardActivity">
+    android:padding="24dp"
+    tools:context=".EditCardFragment">
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="View card"
+        android:text="@string/edit_card_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,7 +19,7 @@
         app:layout_constraintVertical_bias="0.1" />
 
     <ImageView
-        android:id="@+id/cardThumbnail"
+        android:id="@+id/cardImage"
         android:layout_width="200sp"
         android:layout_height="200sp"
         android:src="@drawable/icon"
@@ -28,72 +30,73 @@
         app:layout_constraintVertical_bias="0.2"
         />
 
-    <TextView
-        android:id="@+id/cardQuestion"
-        android:layout_width="300sp"
+    <EditText
+        android:id="@+id/questionField"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/questionField"
+        android:hint="@string/enter_question_text"
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine"
+        android:maxLines="2"
+        android:minLines="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.5" />
 
-    <TextView
-        android:id="@+id/cardExample"
-        android:layout_width="300sp"
+    <EditText
+        android:id="@+id/exampleField"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24sp"
-        android:hint="@string/exampleField"
+        android:layout_marginTop="18sp"
+        android:hint="@string/enter_example_text"
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine"
+        android:maxLines="2"
+        android:minLines="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardQuestion" />
+        app:layout_constraintTop_toBottomOf="@id/questionField" />
 
-    <TextView
-        android:id="@+id/cardAnswer"
-        android:layout_width="300sp"
+    <EditText
+        android:id="@+id/answerField"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24sp"
-        android:hint="@string/answerField"
+        android:layout_marginTop="18sp"
+        android:hint="@string/enter_answer_text"
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine"
+        android:maxLines="2"
+        android:minLines="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardExample" />
+        app:layout_constraintTop_toBottomOf="@id/exampleField" />
 
-    <TextView
-        android:id="@+id/cardTranslation"
-        android:layout_width="300sp"
+    <EditText
+        android:id="@+id/translationField"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24sp"
-        android:hint="@string/translationField"
+        android:layout_marginTop="18sp"
+        android:hint="@string/enter_translation_text"
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine"
+        android:maxLines="2"
+        android:minLines="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardAnswer" />
+        app:layout_constraintTop_toBottomOf="@id/answerField" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/editButton"
+        android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/edit"
+        android:src="@drawable/add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.95"
+        app:layout_constraintVertical_bias="0.975"
         app:maxImageSize="32sp" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.95"
-        app:maxImageSize="32sp" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
