@@ -13,25 +13,7 @@
         android:theme="@style/Theme.AppCompat.Light"
         tools:targetApi="34">
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".CardEdit"
-            android:exported="false" />
-        <activity
-            android:name=".CardView"
-            android:exported="false" />
-        <activity
-            android:name=".CardAdd"
-            android:exported="false" />
-        <activity
-            android:name=".CardList"
+            android:name=".CardListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

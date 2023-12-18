@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Lab4</string>
+    <string name="app_name">Lab5</string>
     <string name="word">Word</string>
     <string name="translation">Translation</string>
-    <string name="addButton">addButton</string>
+    <string name="addButton">Add</string>
     <string name="cardView">Viewing Card</string>
     <string name="picture_placeholder">Current picture or placeholder</string>
     <string name="questionField">Question: %1$s</string>
@@ -20,12 +20,12 @@
     <string name="saveButton">saveButton</string>
     <string name="cardList">List Cards</string>
     <string name="deleteWarning">Do you really wish to delete the card?</string>
-    <string name="deletionMessage">Будет удалена карточка:\n %1$s / %2$s</string>
-    <string name="Yes">Да</string>
-    <string name="No">Нет</string>
-    <string name="unfilledQuestion">Поле вопроса отсутствует</string>
-    <string name="unfilledExample">Поле примера отсутствует</string>
-    <string name="unfilledAnswer">Поле ответа отсутствует</string>
-    <string name="unfilledTranslation">Поле перевода отсутствует</string>
-    <string name="deletionReverted">Удаление отменено</string>
+    <string name="deletionMessage">Card will be deleted:\n %1$s / %2$s</string>
+    <string name="Yes">Yes</string>
+    <string name="No">No</string>
+    <string name="unfilledQuestion">Question field is missing</string>
+    <string name="unfilledExample">Example field is missing</string>
+    <string name="unfilledAnswer">Answer field is missing</string>
+    <string name="unfilledTranslation">Translation field is missing</string>
+    <string name="deletionReverted">Deletion reverted</string>
 </resources>
