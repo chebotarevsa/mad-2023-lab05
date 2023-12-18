@@ -1,1 +1,14 @@
+<<<<<<< HEAD
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+
+.DS_Store
+=======
 .idea/
+>>>>>>> e266fa2f65a986a584dd859badb64e51a0b7e075
