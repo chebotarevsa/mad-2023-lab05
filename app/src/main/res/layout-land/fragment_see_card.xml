@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragments.SeeCardFragment">
+
+    <ImageView
+        android:id="@+id/cardThumbnail"
+        android:layout_width="@dimen/null_size"
+        android:layout_height="@dimen/null_size"
+        android:contentDescription="@string/currOrPlaceholder"
+        android:src="@drawable/icon"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintWidth_percent="0.4"/>
+
+    <TextView
+        android:id="@+id/cardQuestion"
+        android:layout_width="@dimen/null_size"
+        android:layout_height="wrap_content"
+        android:text="@string/questionField"
+        android:textSize="@dimen/text_size"
+        app:layout_constraintTop_toTopOf="@id/cardThumbnail"
+        app:layout_constraintStart_toEndOf="@id/cardThumbnail"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="@dimen/text_size"/>
+
+    <TextView
+        android:id="@+id/cardExample"
+        android:layout_width="@dimen/null_size"
+        android:layout_height="wrap_content"
+        android:text="@string/exampleField"
+        android:textSize="@dimen/text_size"
+        app:layout_constraintTop_toBottomOf="@id/cardQuestion"
+        app:layout_constraintStart_toEndOf="@id/cardThumbnail"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="@dimen/text_size"
+        android:layout_marginTop="@dimen/cards_margin"/>
+
+    <TextView
+        android:id="@+id/cardAnswer"
+        android:layout_width="@dimen/null_size"
+        android:layout_height="wrap_content"
+        android:text="@string/answerField"
+        android:textSize="@dimen/text_size"
+        app:layout_constraintTop_toBottomOf="@id/cardExample"
+        app:layout_constraintStart_toEndOf="@id/cardThumbnail"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="@dimen/text_size"
+        android:layout_marginTop="@dimen/cards_margin"/>
+
+    <TextView
+        android:id="@+id/cardTranslation"
+        android:layout_width="@dimen/null_size"
+        android:layout_height="wrap_content"
+        android:text="@string/translationField"
+        android:textSize="@dimen/text_size"
+        app:layout_constraintTop_toBottomOf="@id/cardAnswer"
+        app:layout_constraintStart_toEndOf="@id/cardThumbnail"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="@dimen/text_size"
+        android:layout_marginTop="@dimen/cards_margin"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/editButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="@dimen/text_size"
+        android:layout_marginBottom="@dimen/text_size"
+        android:tint="@android:color/white"
+        app:backgroundTint="@color/bright_pink"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
