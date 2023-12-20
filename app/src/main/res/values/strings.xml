@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">AnkiLight</string>
+
+<string name="questionField">Вопрос: %s</string>
+<string name="exampleField">Подсказка: %s</string>
+<string name="answerField">Ответ: %s</string>
+<string name="translationField">Перевод: %s</string>
+
+
+
+<string name="addingCard">Добавление карточки</string>
+<string name="editingCard">Редактирование карточки</string>
+<string name="seeingCard">Просмотр карточки</string>
+
+<string name="enterTranslation">Введите перевод</string>
+<string name="enterAnswer">Введите ответ</string>
+<string name="enterExample">Введите пример</string>
+<string name="enterQuestion">Введите вопрос</string>
+
+
+<string name="addButton">Добавить карточку</string>
+<string name="saveButton">Сохранить карточку</string>
+<string name="editButton">Редактировать карточку</string>
+<string name="backButton">Назад</string>
+
+<string name="currOrPlaceholder">Изображение</string>
+<string name="textPlaceholder">Текст</string>
+
+</resources>
